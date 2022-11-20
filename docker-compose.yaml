@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+  api:
+    container_name: save-my-money-api
+    build: 
+      context: .
+    volumes:
+      - .:/usr/src/save-my-money
+    ports:
+      - "3000:3000"
+    tty: true
+    networks:
+      - save-my-money-network
+    depends_on:
+      - db
+    command: bash -c "npm start"
+
+  db:
+    image: postgres:15.1
+    container_name: save-my-money-db
+    environment:
+      - POSTGRES_USER=save-my-money-user
+      - POSTGRES_PASSWORD=save-my-money
+      - POSTGRES_DB=save-my-money
+
+  
+networks:
+  save-my-money-network:
+    driver: bridge
