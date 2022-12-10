@@ -1,11 +1,11 @@
-FROM node:16.17.0
+FROM node:18.12.1
 
 WORKDIR /usr/src/save-my-money
 
-COPY . .
+COPY package*.json ./
 
-RUN npm install && npm install -g @nestjs/cli
+RUN npm install
 
-CMD [ "npm", "start" ]
+COPY . . 
 
-EXPOSE 3000
+RUN npm run build

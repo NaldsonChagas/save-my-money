@@ -7,14 +7,15 @@ services:
       context: .
     volumes:
       - .:/usr/src/save-my-money
+      - /usr/src/save-my-money/node_modules
     ports:
       - "3000:3000"
     tty: true
     networks:
       - save-my-money-network
+    command: npm run start:dev
     depends_on:
       - db
-    command: bash -c "npm start"
 
   db:
     image: postgres:15.1
@@ -23,6 +24,8 @@ services:
       - POSTGRES_USER=save-my-money-user
       - POSTGRES_PASSWORD=save-my-money
       - POSTGRES_DB=save-my-money
+    networks:
+      - save-my-money-network
 
   
 networks:
